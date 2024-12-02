@@ -24,7 +24,7 @@ export default class Cell {
 
         this.colors = {}
         this.colors.valid = 0x9290FF
-        this.colors.inValid = 0xFF000D
+        this.colors.inValid = 0x8B0000
         this.colors.start = 0xFFFFFF
         this.colors.target = 0x000000
         this.colors.onClosedList = 0x2513FF

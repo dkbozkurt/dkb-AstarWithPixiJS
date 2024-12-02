@@ -18,8 +18,8 @@ export default class GridSystem {
         this.resources = this.gameBase.resources
         this.scene = this.gameBase.scene
 
-        this.cellsPerRow = 6
-        this.cellsPerColumn = 10
+        this.cellsPerRow = 7
+        this.cellsPerColumn = 9
         this.initialXOffSet = 50
         this.initialYOffSet = 50
         this.gridIncrementValue = 75
