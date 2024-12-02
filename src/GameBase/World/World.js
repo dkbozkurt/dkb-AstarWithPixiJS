@@ -1,9 +1,8 @@
 import GameBase from "../GameBase.js"
+import Player from "./Player.js"
 import GridSystem from "./GridSystem.js"
-import Crab from "./Crab.js"
 import Cell from "./Cell.js"
 import InputController from "./InputController.js"
-import Player from "./Player.js"
 import Obstacle from "./Obstacle.js"
 
 export default class World {
@@ -17,14 +16,14 @@ export default class World {
         this.resources.on('ready', () => {
 
             // Setup
-            this.crab = new Crab()
+            this.player = new Player()
         })
     }
 
     update() {
-        if(this.crab)
+        if(this.player)
         {
-            // this.crab.update()
+            this.player.update()
         }
     }
 }
