@@ -43,6 +43,8 @@ export default class Cell {
         this.cellModel.cursor = 'pointer'
 
         this.cellModel.on('pointertap', () => {
+            if (!this.gridSystem.isEditableCell(this)) return
+
             this.setValidity(!this.isValid)
         })
 
@@ -76,12 +78,14 @@ export default class Cell {
     setAsStart() {
         this.gridSystem.resetCell(this.gridSystem.startCell)
         this.gridSystem.startCell = this
+        this.isValid = true
         this.setCellColor(this.colors.start)
     }
 
     setAsTarget() {
         this.gridSystem.resetCell(this.gridSystem.endCell)
         this.gridSystem.endCell = this
+        this.isValid = true
         this.setCellColor(this.colors.target)
     }
 

@@ -69,13 +69,17 @@ export default class GridSystem {
         }
     }
 
-    resetCell(targetCell)
-    {
+    resetCell(targetCell) {
         targetCell && targetCell.reset()
     }
 
-    isCellValid(targetCell)
-    {
+    isCellValid(targetCell) {
         return targetCell && targetCell.isValid
+    }
+
+    isEditableCell(targetCell) {
+        if (targetCell === this.startCell || targetCell === this.endCell) return false
+
+        return true
     }
 }
