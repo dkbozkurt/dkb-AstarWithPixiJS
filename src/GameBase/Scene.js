@@ -41,6 +41,5 @@ export default class Scene{
     {
         this.stage.eventMode = 'static'
         this.stage.interactive = true;
-        this.stage.hitArea = this.stage.getBounds()
     }
 }

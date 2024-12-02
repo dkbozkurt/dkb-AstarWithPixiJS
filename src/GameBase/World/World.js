@@ -15,6 +15,7 @@ export default class World {
         this.resources.on('ready', () => {
 
             // Setup
+            this.inputController = new InputController()
             this.player = new Player()
             this.gridSystem = new GridSystem()
         })
@@ -29,6 +30,11 @@ export default class World {
         if(this.gridSystem)
         {
             this.gridSystem.update()
+        }
+
+        if(this.inputController)
+        {
+            this.inputController.update()
         }
     }
 }
