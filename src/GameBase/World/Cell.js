@@ -36,6 +36,13 @@ export default class Cell {
         this.gScore = 0
         this.hScore = 0
 
+        this.cellModel.eventMode = 'static'
+        this.cellModel.cursor = 'pointer'
+
+        this.cellModel.on('pointertap', () => {
+            this.setValidity(!this.isValid)
+        })
+
         this.setup(x, y)
     }
 

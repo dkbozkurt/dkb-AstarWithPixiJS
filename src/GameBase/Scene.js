@@ -41,5 +41,6 @@ export default class Scene{
     {
         this.stage.eventMode = 'static'
         this.stage.interactive = true;
+        this.stage.hitArea = new PIXI.Rectangle(0, 0, this.sizes.width, this.sizes.height)
     }
 }
