@@ -1,7 +1,6 @@
 import GameBase from "../GameBase.js"
 import Player from "./Player.js"
 import GridSystem from "./GridSystem.js"
-import Cell from "./Cell.js"
 import InputController from "./InputController.js"
 import Obstacle from "./Obstacle.js"
 

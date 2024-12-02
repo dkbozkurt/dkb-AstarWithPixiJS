@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import GameBase from '../GameBase.js'
+import Cell from './Cell.js'
 
 let instance = null
 
@@ -51,14 +52,13 @@ export default class GridSystem {
 
         for (let i = 0; i < this.cellsPerRow * this.cellsPerColumn; i++) {
 
-            const newCell = new PIXI.Sprite(this.resources.items["cellTexture"])
-            newCell.scale.set(0.5, 0.5)
-            newCell.x = this.initialXOffSet + this.gridIncrementValue * counter
-            newCell.y = this.initialYOffSet + ySpacing
+            const cell = new Cell(
+                this.initialXOffSet + this.gridIncrementValue * counter,
+                this.initialYOffSet + ySpacing,
+            )
 
-            newCell.Id = i
-            this.allCells.push(newCell)
-            this.scene.add(newCell)
+            cell.Id = i
+            this.allCells.push(cell)
 
             counter += 1
 
