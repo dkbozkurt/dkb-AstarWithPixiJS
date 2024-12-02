@@ -31,7 +31,7 @@ export default class Player {
 
     update() {
         if (this.crabModel) {
-            this.crabModel.rotation += 0.1;
+            // this.crabModel.rotation += 0.1;
         }
     }
 }

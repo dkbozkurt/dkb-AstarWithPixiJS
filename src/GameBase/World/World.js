@@ -11,12 +11,14 @@ export default class World {
 
         this.scene = this.gameBase.scene
         this.resources = this.gameBase.resources
+        this.gridSystem = this.gameBase.gridSystem
 
         // Wait for resources
         this.resources.on('ready', () => {
 
             // Setup
             this.player = new Player()
+            this.gridSystem = new GridSystem()
         })
     }
 
@@ -24,6 +26,11 @@ export default class World {
         if(this.player)
         {
             this.player.update()
+        }
+
+        if(this.gridSystem)
+        {
+            this.gridSystem.update()
         }
     }
 }
