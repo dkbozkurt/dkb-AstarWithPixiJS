@@ -1,9 +1,9 @@
-// import Sizes from './Utils/Sizes.js'
-// import Time from './Utils/Time.js'
+import Sizes from './Utils/Sizes.js'
+import Time from './Utils/Time.js'
 import Scene from './Scene.js';
-// import Resources from './Utils/Resources.js';
-// import sources from './sources.js'
-// import World from './World/World.js';
+import Resources from './Utils/Resources.js';
+import sources from './sources.js'
+import World from './World/World.js';
 let instance = null;
 
 export default class GameBase
@@ -23,21 +23,21 @@ export default class GameBase
         this.canvas = canvas
 
         // Setup
-        // this.sizes = new Sizes()
-        // this.time = new Time()
+        this.sizes = new Sizes()
+        this.time = new Time()
         this.scene = new Scene()
-        // this.resources = new Resources(sources)
-        // this.world = new World()
+        this.resources = new Resources(sources)
+        this.world = new World()
 
-        // this.sizes.on('resize',()=>
-        // {
-        //     this.resize()
-        // })
+        this.sizes.on('resize',()=>
+        {
+            this.resize()
+        })
 
-        // this.time.on('tick', () =>
-        // {
-        //     this.update()
-        // })
+        this.time.on('tick', () =>
+        {
+            this.update()
+        })
     }
 
     resize()
@@ -47,6 +47,6 @@ export default class GameBase
 
     update()
     {
-        // this.world.update()
+        this.world.update()
     }
 }
