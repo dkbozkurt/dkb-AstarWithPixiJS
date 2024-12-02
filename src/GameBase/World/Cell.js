@@ -14,6 +14,9 @@ export default class Cell {
         this.cellModel = new PIXI.Sprite(this.resources.items["cellTexture"])
         this.cellModel.scale.set(0.5, 0.5)
 
+        // Set anchor point to the center for proper rotation
+        this.cellModel.anchor.set(0.5);
+
         this.Id = -1
         this.isValid = true
 

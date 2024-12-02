@@ -20,8 +20,8 @@ export default class GridSystem {
 
         this.cellsPerRow = 6
         this.cellsPerColumn = 10
-        this.initialXOffSet = 25
-        this.initialYOffSet = 25
+        this.initialXOffSet = 50
+        this.initialYOffSet = 50
         this.gridIncrementValue = 75
         this.canMoveDiagonally = false
 
