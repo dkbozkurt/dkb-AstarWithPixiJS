@@ -1,5 +1,10 @@
 import GameBase from "../GameBase.js"
+import GridSystem from "./GridSystem.js"
 import Crab from "./Crab.js"
+import Cell from "./Cell.js"
+import InputController from "./InputController.js"
+import Player from "./Player.js"
+import Obstacle from "./Obstacle.js"
 
 export default class World {
     constructor() {
@@ -19,7 +24,7 @@ export default class World {
     update() {
         if(this.crab)
         {
-            this.crab.update()
+            // this.crab.update()
         }
     }
 }
