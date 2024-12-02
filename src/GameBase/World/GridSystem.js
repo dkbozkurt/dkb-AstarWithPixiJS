@@ -73,4 +73,9 @@ export default class GridSystem {
     {
         targetCell && targetCell.reset()
     }
+
+    isCellValid(targetCell)
+    {
+        return targetCell && targetCell.isValid
+    }
 }
