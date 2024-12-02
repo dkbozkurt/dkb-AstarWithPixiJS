@@ -9,6 +9,7 @@ export default class Scene{
         this.sizes = this.gameBase.sizes
 
         this.setupScene()
+        this.enableInteractivity()
     }
 
     setupScene()
@@ -39,6 +40,7 @@ export default class Scene{
     enableInteractivity()
     {
         this.stage.eventMode = 'static'
-        this.stage.hitArea = this.app.screen
+        this.stage.interactive = true;
+        this.stage.hitArea = this.stage.getBounds()
     }
 }
