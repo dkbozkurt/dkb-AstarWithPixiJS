@@ -68,4 +68,9 @@ export default class GridSystem {
             }
         }
     }
+
+    resetCell(targetCell)
+    {
+        targetCell && targetCell.reset()
+    }
 }

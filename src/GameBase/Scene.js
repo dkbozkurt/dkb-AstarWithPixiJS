@@ -20,7 +20,7 @@ export default class Scene{
             resizeTo: window,
             antialias: true,
             autoResize: true,
-            backgroundColor: 0x1099bb,
+            backgroundColor: 0xd3d3d3,
         })
 
         this.stage = this.app.stage
