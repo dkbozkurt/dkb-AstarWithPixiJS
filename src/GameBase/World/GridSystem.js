@@ -69,6 +69,80 @@ export default class GridSystem {
         }
     }
 
+    startPathFinding() {
+
+        if (this.isCalculating) return
+        if (this.preCheckerForCellsBasedCalculatePath()) return
+
+        console.log('Processing...');
+
+        this.resetAllCells()
+        this.calculatePath()
+    }
+
+    preCheckerForCellsBasedCalculatePath() {
+        if (this.startCell == null || this.endCell == null) {
+            console.log("You have to assign both \"StartCell\" and \"TargetCell\" for Calculate Path from Cells!");
+            return false;
+        }
+        else if (!this.endCell.IsValid) {
+            console.log("\"TargetCell\" is not a valid cell to move!");
+            return false;
+        }
+        else if (this.startCell.Id == this.endCell.Id) {
+            console.log("\"StartCell\" and \"TargetCell\" are can not be the same cell.");
+            return false;
+        }
+
+        return true;
+    }
+
+    async calculatePath() {
+
+        this.isCalculating = true
+
+        console.log('Waiting for 2 seconds...');
+        await this.wait(2000); // Wait for 2000 milliseconds (2 seconds)
+        console.log('2 seconds passed.');
+
+        // TODO if you wanna do yield break just use 'return'
+        console.log('Waiting for the next frame...');
+        await this.waitForNextFrame(); // Wait for the next animation frame
+
+        console.log('Next frame reached.');
+
+        this.isCalculating = false
+    }
+
+    wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // Function to wait for one frame
+    waitForNextFrame() {
+        return new Promise(resolve => requestAnimationFrame(resolve));
+    }
+
+    getAdjacentCells(currentCell) {
+        return currentCell.getAdjacentCells()
+    }
+
+    addCellToClosedList(cellToAdd) {
+        this.closedList.push(cellToAdd)
+        cellToAdd.setToClosedList()
+    }
+
+    addCellToOpenList(cellToAdd) {
+        this.openList.push(cellToAdd)
+        cellToAdd.setToOpenList()
+    }
+
+    resetAllCells() {
+        this.allCells.forEach(cell => {
+            cell.reset()
+        })
+    }
+
     resetCell(targetCell) {
         targetCell && targetCell.reset()
     }
