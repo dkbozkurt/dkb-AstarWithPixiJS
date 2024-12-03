@@ -104,7 +104,7 @@ export default class EventEmitter
         return this
     }
 
-    trigger(_name, _args)
+    trigger(_name, ..._args)
     {
         // Errors
         if(typeof _name === 'undefined' || _name === '')
@@ -117,7 +117,7 @@ export default class EventEmitter
         let result = null
 
         // Default args
-        const args = !(_args instanceof Array) ? [] : _args
+        const args = _args
 
         // Resolve names (should on have one event)
         let name = this.resolveNames(_name)
