@@ -10,6 +10,7 @@ export default class Player {
         this.resources = this.gameBase.resources
         this.scene = this.gameBase.scene
         this.gridSystem = new GridSystem()
+        this.currentPathIndex = 0
 
         this.setModel(initialStartCell)
     }
@@ -17,7 +18,7 @@ export default class Player {
     setModel(initialStartCell) {
         this.crabModel = new PIXI.Sprite(this.resources.items["crabTexture"])
 
-        this.crabModel.scale.set(0.4,0.4)
+        this.crabModel.scale.set(0.4, 0.4)
 
         // Set anchor point to the center for proper rotation
         this.crabModel.anchor.set(0.5);
@@ -30,6 +31,11 @@ export default class Player {
 
         // Add the bunny to the stage
         this.gameBase.scene.add(this.crabModel)
+
+        this.gridSystem.on('onPathGenerated', (path) => {
+            console.log('Passed Path Info:', path.length);
+            this.move(path)
+        })
     }
 
 
@@ -37,5 +43,28 @@ export default class Player {
         if (this.crabModel) {
             // this.crabModel.rotation += 0.1;
         }
+    }
+
+    async move(cells) {
+        this.currentPathIndex = 0
+        for (let i = 1; i < cells.length; i++) {
+            const nextCell = cells[this.currentPathIndex];
+            this.crabModel.x = nextCell.cellModel.x;
+            this.crabModel.y = nextCell.cellModel.y;
+            this.currentPathIndex++;
+
+            await this.wait(100);
+        }
+
+        console.log('Done!');
+    }
+
+    wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // Function to wait for one frame
+    waitForNextFrame() {
+        return new Promise(resolve => requestAnimationFrame(resolve));
     }
 }

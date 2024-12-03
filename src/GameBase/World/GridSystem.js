@@ -1,12 +1,15 @@
 import * as PIXI from 'pixi.js'
 import GameBase from '../GameBase.js'
 import Cell from './Cell.js'
+import EventEmitter from '../Utils/EventEmitter.js'
 
 let instance = null
 
-export default class GridSystem {
+export default class GridSystem extends EventEmitter {
 
     constructor() {
+
+        super()
 
         if (instance) {
             return instance
@@ -118,10 +121,6 @@ export default class GridSystem {
             // Safety-abort in case of endless loop
             cycleCounter++;
             if (cycleCounter >= this.numberOfCells) {
-
-                // TODO Here should be an event!
-                // this.OnNoPathFound();
-
                 console.log("No Path Found");
                 this.isCalculating = false;
                 return;
@@ -178,7 +177,10 @@ export default class GridSystem {
         // DrawPath
         // drawPath(path);
 
-        // if (onPathGenerated) onPathGenerated(path);
+        // Event triggered!
+
+        console.log('Path Found:', path.length);
+        this.trigger('onPathGenerated', path);
 
         this.isCalculating = false;
     }
