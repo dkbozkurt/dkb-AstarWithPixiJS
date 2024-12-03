@@ -47,6 +47,8 @@ export default class GridSystem extends EventEmitter {
         this.setup()
 
         this.helpers()
+
+        this.setInitiallyInValidCells()
     }
 
     addEventListeners() {
@@ -382,5 +384,18 @@ export default class GridSystem extends EventEmitter {
 
         this.player.setModelPositionToCell(this.startCell)
         this.target.setModelPositionToCell(this.endCell)
+    }
+
+    setInitiallyInValidCells() {
+
+        const invalidCellIds = [15, 17, 19, 22, 24, 29, 30, 31, 33, 36, 38, 40, 43, 45, 47]
+        for (let i = 0; i < this.allCells.length; i++) {
+            for (let j = 0; j < invalidCellIds.length; j++) {
+                if (i !== invalidCellIds[j]) continue
+
+                this.allCells[i].setValidity(false)
+            }
+
+        }
     }
 }
