@@ -2,7 +2,9 @@ import { defineConfig } from 'vite';
 import path from 'path'; // Ensure you import the 'path' module
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(() => {
+
+	const isLocal = !('SANDBOX_URL' in process.env || 'CODESANDBOX_HOST' in process.env);
 
 	return {
 		root: 'src/',
@@ -19,7 +21,7 @@ export default defineConfig(({ mode }) => {
 			},
 			port:3000,
 			host: true,
-			open: !('SANDBOX_URL' in process.env || 'CODESANDBOX_HOST' in process.env)
+			open: isLocal ? '/#debug' : true,
 		},
 		build: {
 			outDir: '../dist',
