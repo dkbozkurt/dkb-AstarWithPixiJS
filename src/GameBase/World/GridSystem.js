@@ -213,11 +213,7 @@ export default class GridSystem extends EventEmitter {
         path.push(currentCell);
         path.reverse();
 
-        // TODO Line renderer part!
-        // DrawPath
-        // drawPath(path);
-
-        // Event triggered!
+        // TODO Line renderer part! Draw Path
 
         this.trigger('onPathGenerated', path);
 
@@ -281,7 +277,8 @@ export default class GridSystem extends EventEmitter {
             gridSize: { rows: this.cellsPerRow, columns: this.cellsPerColumn },
             startCellIndex: 0,
             endCellIndex: this.numberOfCells - 1,
-            startPathFinding: () => this.startPathFinding()
+            resetMap: () => this.resetMap(),
+            startPathFinding: () => this.startPathFinding(),
         }
 
         const startCellIndexHolder = this.debugFolder
@@ -362,15 +359,20 @@ export default class GridSystem extends EventEmitter {
 
 
         this.debugFolder
+            .add(this.debugObject, 'resetMap')
+            .name('Reset Map')
+
+        this.debugFolder
             .add(this.debugObject, 'startPathFinding')
             .name('Start Path Finding')
-            .onFinishChange(() => {
-                this.startPathFinding()
-            })
     }
 
     resetMap() {
-        console.log('Resetting Map...');
-    }
+        this.resetAllCells()
+        this.startCell.setAsStart()
+        this.endCell.setAsTarget()
 
+        this.player.setModelPositionToCell(this.startCell)
+        this.target.setModelPositionToCell(this.endCell)
+    }
 }

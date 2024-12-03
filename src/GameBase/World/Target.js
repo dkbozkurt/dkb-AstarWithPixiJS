@@ -29,6 +29,8 @@ export default class Target {
 
     setModelPositionToCell(cell) {
         // Set the bunny's position to the center of the canvas
+
+        if(this.hamburgerModel.visible === false) this.hamburgerModel.visible = true
         this.hamburgerModel.x = cell.cellModel.x
         this.hamburgerModel.y = cell.cellModel.y
     }
