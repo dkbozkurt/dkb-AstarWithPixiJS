@@ -62,6 +62,8 @@ export default class Cell {
     }
 
     reset() {
+        this.parentCell = null
+        
         this.fScore = 0
         this.gScore = 0
         this.hScore = 0
