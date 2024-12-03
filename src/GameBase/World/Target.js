@@ -17,6 +17,7 @@ export default class Target {
         this.hamburgerModel = new PIXI.Sprite(this.resources.items["hamburgerTexture"])
 
         this.hamburgerModel.scale.set(0.4,0.4)
+        this.hamburgerModel.zIndex = 1
 
         // Set anchor point to the center for proper rotation
         this.hamburgerModel.anchor.set(0.5);

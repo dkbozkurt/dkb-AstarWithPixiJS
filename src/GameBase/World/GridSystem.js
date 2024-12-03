@@ -179,7 +179,6 @@ export default class GridSystem extends EventEmitter {
 
         // Event triggered!
 
-        console.log('Path Found:', path.length);
         this.trigger('onPathGenerated', path);
 
         this.isCalculating = false;

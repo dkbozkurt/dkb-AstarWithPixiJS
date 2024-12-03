@@ -19,6 +19,7 @@ export default class Player {
         this.crabModel = new PIXI.Sprite(this.resources.items["crabTexture"])
 
         this.crabModel.scale.set(0.4, 0.4)
+        this.crabModel.zIndex = 2
 
         // Set anchor point to the center for proper rotation
         this.crabModel.anchor.set(0.5);
@@ -33,7 +34,6 @@ export default class Player {
         this.gameBase.scene.add(this.crabModel)
 
         this.gridSystem.on('onPathGenerated', (path) => {
-            console.log('Passed Path Info:', path.length);
             this.move(path)
         })
     }
@@ -47,7 +47,7 @@ export default class Player {
 
     async move(cells) {
         this.currentPathIndex = 0
-        for (let i = 1; i < cells.length; i++) {
+        for (let i = 0; i < cells.length; i++) {
             const nextCell = cells[this.currentPathIndex];
             this.crabModel.x = nextCell.cellModel.x;
             this.crabModel.y = nextCell.cellModel.y;
