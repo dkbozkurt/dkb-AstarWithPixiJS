@@ -2,6 +2,8 @@ import * as PIXI from 'pixi.js'
 import GameBase from '../GameBase.js'
 import Cell from './Cell.js'
 import EventEmitter from '../Utils/EventEmitter.js'
+import Player from './Player.js'
+import Target from './Target.js'
 
 let instance = null
 
@@ -31,7 +33,6 @@ export default class GridSystem extends EventEmitter {
 
         this.startCell = null;
         this.endCell = null;
-        this.target = null;
 
         this.allCells = []
         this.openList = []
@@ -40,13 +41,19 @@ export default class GridSystem extends EventEmitter {
         this.isCalculating = false
 
         this.setup()
+        this.player = new Player(this.allCells[0])
+        this.target = new Target(this.allCells[this.allCells.length - 1])
     }
 
     setup() {
         this.createCells()
     }
 
-    update() { }
+    update() {
+        if (this.player) this.player.update()
+
+        if (this.target) this.target.update()
+    }
 
     destroy() { }
 

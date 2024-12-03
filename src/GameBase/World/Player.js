@@ -13,6 +13,10 @@ export default class Player {
         this.currentPathIndex = 0
 
         this.setModel(initialStartCell)
+
+        this.gridSystem.on('onPathGenerated', (path) => {
+            this.move(path)
+        })
     }
 
     setModel(initialStartCell) {
@@ -26,16 +30,16 @@ export default class Player {
 
         initialStartCell.setAsStart()
 
-        // Set the bunny's position to the center of the canvas
-        this.crabModel.x = initialStartCell.cellModel.x
-        this.crabModel.y = initialStartCell.cellModel.y
+        this.setModelPositionToCell(initialStartCell)
 
         // Add the bunny to the stage
         this.gameBase.scene.add(this.crabModel)
+    }
 
-        this.gridSystem.on('onPathGenerated', (path) => {
-            this.move(path)
-        })
+    setModelPositionToCell(cell) {
+        // Set the bunny's position to the center of the canvas
+        this.crabModel.x = cell.cellModel.x
+        this.crabModel.y = cell.cellModel.y
     }
 
 
