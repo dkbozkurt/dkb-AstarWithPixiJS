@@ -21,6 +21,7 @@ export default class GridSystem extends EventEmitter {
         this.gameBase = new GameBase()
         this.sizes = this.gameBase.sizes
         this.resources = this.gameBase.resources
+        this.debug = this.gameBase.debug
         this.scene = this.gameBase.scene
 
         this.cellsPerRow = 7
@@ -40,13 +41,22 @@ export default class GridSystem extends EventEmitter {
 
         this.isCalculating = false
 
+        this.checkIfDebugActive()
+
         this.setup()
-        this.player = new Player(this.allCells[0])
-        this.target = new Target(this.allCells[this.allCells.length - 1])
+
+        this.helpers()
     }
 
     setup() {
         this.createCells()
+
+        this.startCell = this.allCells[0]
+        this.endCell = this.allCells[this.allCells.length - 1]
+        this.startCell.setAsStart()
+        this.endCell.setAsTarget()
+        this.player = new Player(this.startCell)
+        this.target = new Target(this.endCell)
     }
 
     update() {
@@ -234,6 +244,80 @@ export default class GridSystem extends EventEmitter {
         const dx = x2 - x1;
         const dy = y2 - y1;
         return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    checkIfDebugActive() {
+        if (this.debug.active) {
+            this.debugFolder = this.debug.ui.addFolder('Grid System')
+        }
+    }
+
+    helpers() {
+        if (!this.debug.active) return
+
+        this.debugObject = {
+            gridSize: { rows: this.cellsPerRow, columns: this.cellsPerColumn },
+            startCellIndex: 0,
+            endCellIndex: this.numberOfCells - 1,
+            startPathFinding: () => this.startPathFinding()
+        }
+
+        // this.debugFolder
+        //     .add(this.debugObject.gridSize, 'rows')
+        //     .name('Cells Per Row ')
+        //     .max(25)
+        //     .onChange((value) => {
+        //         // TODO Destroy old grid with player and target
+        //         this.cellsPerRow = value
+        //         this.setup()
+        //     })
+
+        // this.debugFolder
+        //     .add(this.debugObject.gridSize, 'columns')
+        //     .name('Cells Per Column ')
+        //     .max(25)
+        //     .onChange((value) => {
+        //         // TODO Destroy old grid with player and target
+        //         this.cellsPerColumn = value
+        //         this.setup()
+        //     })
+
+        this.debugFolder
+            .add(this.debugObject, 'startCellIndex')
+            .name('Start Cell Index')
+            .min(0)
+            .max(this.numberOfCells - 1)
+            .step(1)
+            .onChange((value) => {
+                this.startCell.reset()
+                this.endCell.setAsTarget()
+
+                this.startCell = this.allCells[value]
+                this.startCell.setAsStart()
+                this.player.setModelPositionToCell(this.startCell)
+            })
+
+        this.debugFolder
+            .add(this.debugObject, 'endCellIndex')
+            .name('End Cell Index')
+            .min(0)
+            .max(this.numberOfCells - 1)
+            .step(1)
+            .onChange((value) => {
+                this.endCell.reset()
+                this.startCell.setAsStart()
+
+                this.endCell = this.allCells[value]
+                this.endCell.setAsTarget()
+                this.target.setModelPositionToCell(this.endCell)
+            })
+
+        this.debugFolder
+            .add(this.debugObject,'startPathFinding')
+            .name('Start Path Finding')
+            .onFinishChange(() => {
+                this.startPathFinding()
+            })
     }
 
 }

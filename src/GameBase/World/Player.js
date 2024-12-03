@@ -28,8 +28,6 @@ export default class Player {
         // Set anchor point to the center for proper rotation
         this.crabModel.anchor.set(0.5);
 
-        initialStartCell.setAsStart()
-
         this.setModelPositionToCell(initialStartCell)
 
         // Add the bunny to the stage

@@ -22,8 +22,6 @@ export default class Target {
         // Set anchor point to the center for proper rotation
         this.hamburgerModel.anchor.set(0.5);
 
-        initialTargetCell.setAsTarget()
-
         this.setModelPositionToCell(initialTargetCell)
         // Add the bunny to the stage
         this.gameBase.scene.add(this.hamburgerModel)

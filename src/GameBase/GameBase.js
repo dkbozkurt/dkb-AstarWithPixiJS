@@ -4,6 +4,7 @@ import Scene from './Scene.js';
 import Resources from './Utils/Resources.js';
 import sources from './sources.js'
 import World from './World/World.js';
+import Debug from './Utils/Debug.js';
 let instance = null;
 
 export default class GameBase
@@ -23,6 +24,7 @@ export default class GameBase
         this.canvas = canvas
 
         // Setup
+        this.debug = new Debug()
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new Scene()

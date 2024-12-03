@@ -1,7 +1,5 @@
 import GameBase from "../GameBase.js"
-import Player from "./Player.js"
 import GridSystem from "./GridSystem.js"
-import Target from "./Target.js"
 
 export default class World {
     constructor() {
@@ -16,25 +14,14 @@ export default class World {
 
             // Setup
             this.gridSystem = new GridSystem()
-            this.player = new Player(this.gridSystem.allCells[0])
-            this.target = new Target(this.gridSystem.allCells[this.gridSystem.allCells.length - 1])
         })
     }
 
     update() {
-        if(this.player)
-        {
-            this.player.update()
-        }
 
         if(this.gridSystem)
         {
             this.gridSystem.update()
-        }
-
-        if(this.inputController)
-        {
-            this.inputController.update()
         }
     }
 }
