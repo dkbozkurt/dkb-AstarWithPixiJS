@@ -72,10 +72,10 @@ export default class GridSystem {
 
     startPathFinding() {
 
+        console.log('Processing...');
+
         if (this.isCalculating) return
         if (this.preCheckerForCellsBasedCalculatePath()) return
-
-        console.log('Processing...');
 
         this.resetAllCells()
         this.calculatePath()
@@ -122,7 +122,7 @@ export default class GridSystem {
                 // this.OnNoPathFound();
 
                 console.log("No Path Found");
-                isCalculating = false;
+                this.isCalculating = false;
                 return;
             }
 
