@@ -31,6 +31,7 @@ export default class GridSystem extends EventEmitter {
 
         this.startCell = null;
         this.endCell = null;
+        this.target = null;
 
         this.allCells = []
         this.openList = []
@@ -186,11 +187,6 @@ export default class GridSystem extends EventEmitter {
 
     wait(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    // Function to wait for one frame
-    waitForNextFrame() {
-        return new Promise(resolve => requestAnimationFrame(resolve));
     }
 
     getAdjacentCells(currentCell) {

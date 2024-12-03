@@ -30,6 +30,7 @@ export default class Target {
 
         // Add the bunny to the stage
         this.gameBase.scene.add(this.hamburgerModel)
+        this.gridSystem.target = this
     }
 
     update() {}

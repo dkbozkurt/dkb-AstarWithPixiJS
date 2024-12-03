@@ -48,14 +48,16 @@ export default class Player {
     async move(cells) {
         this.currentPathIndex = 0
         for (let i = 0; i < cells.length; i++) {
+
             const nextCell = cells[this.currentPathIndex];
             this.crabModel.x = nextCell.cellModel.x;
             this.crabModel.y = nextCell.cellModel.y;
             this.currentPathIndex++;
 
-            await this.wait(100);
+            await this.wait(50);
         }
 
+        this.gridSystem.target.hamburgerModel.visible = false
         console.log('Done!');
     }
 
