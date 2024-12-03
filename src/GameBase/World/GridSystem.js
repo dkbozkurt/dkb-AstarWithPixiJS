@@ -274,12 +274,20 @@ export default class GridSystem extends EventEmitter {
         if (!this.debug.active) return
 
         this.debugObject = {
+            canMoveDiagonally: false,
             gridSize: { rows: this.cellsPerRow, columns: this.cellsPerColumn },
             startCellIndex: 0,
             endCellIndex: this.numberOfCells - 1,
             resetMap: () => this.resetMap(),
             startPathFinding: () => this.startPathFinding(),
         }
+
+        this.debugFolder
+            .add(this.debugObject, 'canMoveDiagonally')
+            .name('Can Move Diagonally')
+            .onChange((value) => {
+                this.canMoveDiagonally = value
+            })
 
         const startCellIndexHolder = this.debugFolder
             .add(this.debugObject, 'startCellIndex')
