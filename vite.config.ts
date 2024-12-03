@@ -8,6 +8,7 @@ export default defineConfig(() => {
 
 	return {
 		root: 'src/',
+		publicDir: '../static/',
 		base: './',
 		resolve:{
 			alias:{
@@ -23,8 +24,9 @@ export default defineConfig(() => {
 			open: isLocal ? '/#debug' : true,
 		},
 		build: {
-			outDir: './dist',
+			outDir: '../dist',
 			emptyOutDir: true,
+			sourcemap: true,
 		},
 	};
 });
