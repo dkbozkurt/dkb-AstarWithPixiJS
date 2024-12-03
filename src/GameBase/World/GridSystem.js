@@ -103,7 +103,7 @@ export default class GridSystem {
 
         this.isCalculating = true
 
-        this.openList =[]
+        this.openList = []
         this.closedList = []
 
         let currentCell = this.startCell;
@@ -129,7 +129,7 @@ export default class GridSystem {
 
             // Add all cells adjacent to currentCell to openList
             for (const cell of this.getAdjacentCells(currentCell)) {
-                const tentativeG = currentCell.gScore + this.distance(currentCell.cellModel.x,currentCell.cellModel.y, cell.cellModel.x, cell.cellModel.y);
+                const tentativeG = currentCell.gScore + this.distance(currentCell.cellModel.x, currentCell.cellModel.y, cell.cellModel.x, cell.cellModel.y);
 
                 // If cell is on closed list skip to next cycle
                 if (cell.isOnClosedList && tentativeG > cell.gScore) {
@@ -231,4 +231,5 @@ export default class GridSystem {
         const dy = y2 - y1;
         return Math.sqrt(dx * dx + dy * dy);
     }
+
 }
