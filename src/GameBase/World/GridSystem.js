@@ -74,8 +74,9 @@ export default class GridSystem {
 
         console.log('Processing...');
 
+        if (!this.preCheckerForCellsBasedCalculatePath()) return
+
         if (this.isCalculating) return
-        if (this.preCheckerForCellsBasedCalculatePath()) return
 
         this.resetAllCells()
         this.calculatePath()
@@ -86,11 +87,11 @@ export default class GridSystem {
             console.log("You have to assign both \"StartCell\" and \"TargetCell\" for Calculate Path from Cells!");
             return false;
         }
-        else if (!this.endCell.IsValid) {
+        if (!this.endCell.isValid) {
             console.log("\"TargetCell\" is not a valid cell to move!");
             return false;
         }
-        else if (this.startCell.Id == this.endCell.Id) {
+        if (this.startCell.Id == this.endCell.Id) {
             console.log("\"StartCell\" and \"TargetCell\" are can not be the same cell.");
             return false;
         }
