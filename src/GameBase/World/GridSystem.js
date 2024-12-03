@@ -322,31 +322,8 @@ export default class GridSystem extends EventEmitter {
             })
 
         this.debugFolder
-            .add(this.debugObject.gridSize, 'rows')
-            .name('Cells Per Row ')
-            .min(2)
-            .max(25)
-            .step(1)
-            .onChange((value) => {
-                this.destroy()
-
-                this.cellsPerRow = value
-                this.createCells()
-                this.debugObject.endCellIndex = this.allCells.length - 1
-                endCellIndexHolder.updateDisplay()
-                endCellIndexHolder.max(this.allCells.length - 1)
-                startCellIndexHolder.max(this.allCells.length - 1)
-
-                this.allCells[0].setAsStart()
-                this.player.setModelPositionToCell(this.startCell)
-
-                this.allCells[this.allCells.length - 1].setAsTarget()
-                this.target.setModelPositionToCell(this.endCell)
-            })
-
-        this.debugFolder
             .add(this.debugObject.gridSize, 'columns')
-            .name('Cells Per Column ')
+            .name('Rows')
             .min(2)
             .max(25)
             .step(1)
@@ -367,6 +344,28 @@ export default class GridSystem extends EventEmitter {
                 this.target.setModelPositionToCell(this.endCell)
             })
 
+        this.debugFolder
+            .add(this.debugObject.gridSize, 'rows')
+            .name('Columns')
+            .min(2)
+            .max(25)
+            .step(1)
+            .onChange((value) => {
+                this.destroy()
+
+                this.cellsPerRow = value
+                this.createCells()
+                this.debugObject.endCellIndex = this.allCells.length - 1
+                endCellIndexHolder.updateDisplay()
+                endCellIndexHolder.max(this.allCells.length - 1)
+                startCellIndexHolder.max(this.allCells.length - 1)
+
+                this.allCells[0].setAsStart()
+                this.player.setModelPositionToCell(this.startCell)
+
+                this.allCells[this.allCells.length - 1].setAsTarget()
+                this.target.setModelPositionToCell(this.endCell)
+            })
 
         this.debugFolder
             .add(this.debugObject, 'resetMap')
