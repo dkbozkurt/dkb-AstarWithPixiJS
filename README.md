@@ -16,7 +16,7 @@ E.g.,
 http://localhost:3000/#debug
 ```
 
-[Website Link](https://dkbozkurt.github.io/dkb-AstarWithPixiJS/)
+[Website Link](https://dkbozkurt.github.io/dkb-AstarWithPixiJS/#debug)
 
 ![](docs/screengrab.png)
 
@@ -57,4 +57,4 @@ Visit `https://<your github username>.github.io/dkb-AstarWithPixiJS/#debug`
 
 E.g.,
 
-[https://dkbozkurt.github.io/dkb-AstarWithPixiJS/](https://dkbozkurt.github.io/dkb-AstarWithPixiJS/)
+[https://dkbozkurt.github.io/dkb-AstarWithPixiJS/#debug](https://dkbozkurt.github.io/dkb-AstarWithPixiJS/#debug)
