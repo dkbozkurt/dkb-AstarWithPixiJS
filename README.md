@@ -4,7 +4,7 @@ This is an interactive tool built using PixiJs and JavaScript to implement the A
 
 ## Boilerplate Overview
 
-When run, it shows a 9x7 grid with the first cell as the start point, and last cell as the end point. with `lil-gui` included.
+When run, it displays a 9x7 grid with the first cell as the start point and the last cell as the end point, with `lil-gui` included.
 
 [Website Link](https://dkbozkurt.github.io/dkb-AstarWithPixiJS/#debug)
 
