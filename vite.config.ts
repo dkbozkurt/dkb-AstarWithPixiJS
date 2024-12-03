@@ -8,8 +8,7 @@ export default defineConfig(() => {
 
 	return {
 		root: 'src/',
-		base: '/',
-		publicDir: '../static',
+		base: './',
 		resolve:{
 			alias:{
 				'@': path.resolve(__dirname, 'static')
@@ -24,7 +23,7 @@ export default defineConfig(() => {
 			open: isLocal ? '/#debug' : true,
 		},
 		build: {
-			outDir: '../dist',
+			outDir: './dist',
 			emptyOutDir: true,
 		},
 	};
