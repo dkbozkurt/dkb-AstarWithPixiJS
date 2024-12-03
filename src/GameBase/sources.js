@@ -1,8 +1,6 @@
 import cell from '@/textures/cell.png'
 import crab from '@/textures/crab.png'
 import hamburger from '@/textures/hamburger.png'
-import bush from '@/textures/bush.png'
-
 
 export default [
     {
@@ -19,10 +17,5 @@ export default [
         name: 'hamburgerTexture',
         type: 'texture',
         path: hamburger
-    },
-    {
-        name: 'bushTexture',
-        type: 'texture',
-        path: bush
     },
 ]
