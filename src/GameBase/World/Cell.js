@@ -42,6 +42,8 @@ export default class Cell {
         this.cellModel.eventMode = 'static'
         this.cellModel.cursor = 'pointer'
 
+        this.parentCell = null
+
         this.cellModel.on('pointertap', () => {
             if (!this.gridSystem.isEditableCell(this)) return
 

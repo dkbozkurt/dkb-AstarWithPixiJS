@@ -20,6 +20,7 @@ export default class GridSystem {
 
         this.cellsPerRow = 7
         this.cellsPerColumn = 9
+        this.numberOfCells = this.cellsPerRow * this.cellsPerColumn
         this.initialXOffSet = 50
         this.initialYOffSet = 50
         this.gridIncrementValue = 75
@@ -101,17 +102,84 @@ export default class GridSystem {
 
         this.isCalculating = true
 
-        console.log('Waiting for 2 seconds...');
-        await this.wait(2000); // Wait for 2000 milliseconds (2 seconds)
-        console.log('2 seconds passed.');
+        this.openList =[]
+        this.closedList = []
 
-        // TODO if you wanna do yield break just use 'return'
-        console.log('Waiting for the next frame...');
-        await this.waitForNextFrame(); // Wait for the next animation frame
+        let currentCell = this.startCell;
+        this.addCellToClosedList(currentCell);
 
-        console.log('Next frame reached.');
+        const cycleDelay = 0.0; // in seconds
+        let cycleCounter = 0;
 
-        this.isCalculating = false
+        while (currentCell.Id !== this.endCell.Id) {
+            await this.wait(cycleDelay * 1000);
+
+            // Safety-abort in case of endless loop
+            cycleCounter++;
+            if (cycleCounter >= this.numberOfCells) {
+
+                // TODO Here should be an event!
+                // this.OnNoPathFound();
+
+                console.log("No Path Found");
+                isCalculating = false;
+                return;
+            }
+
+            // Add all cells adjacent to currentCell to openList
+            for (const cell of this.getAdjacentCells(currentCell)) {
+                const tentativeG = currentCell.gScore + this.distance(currentCell.cellModel.x,currentCell.cellModel.y, cell.cellModel.x, cell.cellModel.y);
+
+                // If cell is on closed list skip to next cycle
+                if (cell.isOnClosedList && tentativeG > cell.gScore) {
+                    continue;
+                }
+
+                if (!cell.isOnOpenList || tentativeG < cell.gScore) {
+                    cell.calculateHScore(this.endCell);
+                    cell.gScore = tentativeG;
+                    cell.fScore = cell.gScore + cell.hScore;
+                    cell.parentCell = currentCell;
+
+                    if (!cell.isOnClosedList) {
+                        this.addCellToOpenList(cell);
+                    }
+                }
+            }
+
+            await this.wait(cycleDelay * 1000);
+
+            // Get cell with lowest F value from openList, set it to currentCell
+            let lowestFValue = Infinity;
+            for (const cell of this.openList) {
+                if (cell.fScore < lowestFValue) {
+                    lowestFValue = cell.fScore;
+                    currentCell = cell;
+                }
+            }
+
+            // remove currentCell from openList, add to closedList
+            this.openList.splice(this.openList.indexOf(currentCell), 1);
+            this.addCellToClosedList(currentCell);
+        }
+
+        // Get Path
+        const path = [];
+        currentCell = this.endCell;
+        while (currentCell.Id !== this.startCell.Id) {
+            path.push(currentCell);
+            currentCell = currentCell.parentCell;
+        }
+        path.push(currentCell);
+        path.reverse();
+
+        // TODO Line renderer part!
+        // DrawPath
+        // drawPath(path);
+
+        // if (onPathGenerated) onPathGenerated(path);
+
+        this.isCalculating = false;
     }
 
     wait(ms) {
@@ -155,5 +223,11 @@ export default class GridSystem {
         if (targetCell === this.startCell || targetCell === this.endCell) return false
 
         return true
+    }
+
+    distance(x1, y1, x2, y2) {
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        return Math.sqrt(dx * dx + dy * dy);
     }
 }
