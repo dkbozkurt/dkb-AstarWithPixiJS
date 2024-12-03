@@ -201,6 +201,7 @@ export default class Cell {
     update() { }
 
     destroy() {
-        this.setCellColor(this.colors.valid)
+        this.reset()
+        this.cellModel.destroy()
     }
 }

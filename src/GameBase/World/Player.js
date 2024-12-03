@@ -42,9 +42,7 @@ export default class Player {
 
 
     update() {
-        if (this.crabModel) {
-            // this.crabModel.rotation += 0.1;
-        }
+
     }
 
     async move(cells) {
@@ -70,5 +68,9 @@ export default class Player {
     // Function to wait for one frame
     waitForNextFrame() {
         return new Promise(resolve => requestAnimationFrame(resolve));
+    }
+
+    destroy() {
+
     }
 }

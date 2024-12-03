@@ -24,4 +24,12 @@ export default class World {
             this.gridSystem.update()
         }
     }
+
+    destroy()
+    {
+        if(this.gridSystem)
+        {
+            this.gridSystem.destroy()
+        }
+    }
 }

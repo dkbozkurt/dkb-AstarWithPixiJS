@@ -42,10 +42,22 @@ export default class GridSystem extends EventEmitter {
         this.isCalculating = false
 
         this.checkIfDebugActive()
+        this.addEventListeners()
 
         this.setup()
 
         this.helpers()
+    }
+
+    addEventListeners() {
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                this.startPathFinding();
+            }
+            else if (event.code === 'KeyR') {
+                this.resetMap()
+            }
+        });
     }
 
     setup() {
@@ -65,9 +77,19 @@ export default class GridSystem extends EventEmitter {
         if (this.target) this.target.update()
     }
 
-    destroy() { }
+    destroy() {
+        this.allCells.forEach(cell => {
+            cell.destroy()
+        })
+
+        if (this.player) this.player.destroy()
+        if (this.target) this.target.destroy()
+    }
 
     createCells() {
+
+        this.allCells = []
+        this.numberOfCells = this.cellsPerRow * this.cellsPerColumn
 
         let ySpacing = 0
         let counter = 0
@@ -262,31 +284,11 @@ export default class GridSystem extends EventEmitter {
             startPathFinding: () => this.startPathFinding()
         }
 
-        // this.debugFolder
-        //     .add(this.debugObject.gridSize, 'rows')
-        //     .name('Cells Per Row ')
-        //     .max(25)
-        //     .onChange((value) => {
-        //         // TODO Destroy old grid with player and target
-        //         this.cellsPerRow = value
-        //         this.setup()
-        //     })
-
-        // this.debugFolder
-        //     .add(this.debugObject.gridSize, 'columns')
-        //     .name('Cells Per Column ')
-        //     .max(25)
-        //     .onChange((value) => {
-        //         // TODO Destroy old grid with player and target
-        //         this.cellsPerColumn = value
-        //         this.setup()
-        //     })
-
-        this.debugFolder
+        const startCellIndexHolder = this.debugFolder
             .add(this.debugObject, 'startCellIndex')
             .name('Start Cell Index')
             .min(0)
-            .max(this.numberOfCells - 1)
+            .max(this.allCells.length - 1)
             .step(1)
             .onChange((value) => {
                 this.startCell.reset()
@@ -297,11 +299,11 @@ export default class GridSystem extends EventEmitter {
                 this.player.setModelPositionToCell(this.startCell)
             })
 
-        this.debugFolder
+        const endCellIndexHolder = this.debugFolder
             .add(this.debugObject, 'endCellIndex')
             .name('End Cell Index')
             .min(0)
-            .max(this.numberOfCells - 1)
+            .max(this.allCells.length - 1)
             .step(1)
             .onChange((value) => {
                 this.endCell.reset()
@@ -313,11 +315,62 @@ export default class GridSystem extends EventEmitter {
             })
 
         this.debugFolder
-            .add(this.debugObject,'startPathFinding')
+            .add(this.debugObject.gridSize, 'rows')
+            .name('Cells Per Row ')
+            .min(2)
+            .max(25)
+            .step(1)
+            .onChange((value) => {
+                this.destroy()
+
+                this.cellsPerRow = value
+                this.createCells()
+                this.debugObject.endCellIndex = this.allCells.length - 1
+                endCellIndexHolder.updateDisplay()
+                endCellIndexHolder.max(this.allCells.length - 1)
+                startCellIndexHolder.max(this.allCells.length - 1)
+
+                this.allCells[0].setAsStart()
+                this.player.setModelPositionToCell(this.startCell)
+
+                this.allCells[this.allCells.length - 1].setAsTarget()
+                this.target.setModelPositionToCell(this.endCell)
+            })
+
+        this.debugFolder
+            .add(this.debugObject.gridSize, 'columns')
+            .name('Cells Per Column ')
+            .min(2)
+            .max(25)
+            .step(1)
+            .onChange((value) => {
+                this.destroy()
+
+                this.cellsPerColumn = value
+                this.createCells()
+                this.debugObject.endCellIndex = this.allCells.length - 1
+                endCellIndexHolder.updateDisplay()
+                endCellIndexHolder.max(this.allCells.length - 1)
+                startCellIndexHolder.max(this.allCells.length - 1)
+
+                this.allCells[0].setAsStart()
+                this.player.setModelPositionToCell(this.startCell)
+
+                this.allCells[this.allCells.length - 1].setAsTarget()
+                this.target.setModelPositionToCell(this.endCell)
+            })
+
+
+        this.debugFolder
+            .add(this.debugObject, 'startPathFinding')
             .name('Start Path Finding')
             .onFinishChange(() => {
                 this.startPathFinding()
             })
+    }
+
+    resetMap() {
+        console.log('Resetting Map...');
     }
 
 }
