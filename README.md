@@ -43,7 +43,7 @@ npm run build
 npm run preview
 ```
 
-Visit [http://localhost:3000/](http://localhost:3000/)
+Visit [http://localhost:4173/#debug](http://localhost:4173/#debug)
 
 ### Deploy to GitHub pages
 
