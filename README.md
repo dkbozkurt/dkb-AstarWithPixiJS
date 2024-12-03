@@ -4,9 +4,19 @@ This is an interactive tool built using PixiJs and JavaScript to implement the A
 
 ## Boilerplate Overview
 
-When run, it displays a 9x7 grid with the first cell as the start point and the last cell as the end point, with `lil-gui` included.
+When run, it displays a 9x7 grid with the first cell as the start point and the last cell as the end point.
 
-[Website Link](https://dkbozkurt.github.io/dkb-AstarWithPixiJS/#debug)
+You can toggle the validity of cells by left-clicking on them, and to set the start and end points, you can adjust the values from the `Debug panel`, which was added using `lil-gui`.
+
+To toggle the visibility of the debug panel, simply add `#debug` to the end of the URL and refresh the page
+
+E.g.,
+<br>
+``` bash
+http://localhost:3000/#debug
+```
+
+[Website Link](https://dkbozkurt.github.io/dkb-AstarWithPixiJS/)
 
 ![](docs/screengrab.png)
 
@@ -47,4 +57,4 @@ Visit `https://<your github username>.github.io/dkb-AstarWithPixiJS/#debug`
 
 E.g.,
 
-[https://dkbozkurt.github.io/dkb-AstarWithPixiJS/#debug](https://dkbozkurt.github.io/dkb-AstarWithPixiJS/#debug)
+[https://dkbozkurt.github.io/dkb-AstarWithPixiJS/](https://dkbozkurt.github.io/dkb-AstarWithPixiJS/)
